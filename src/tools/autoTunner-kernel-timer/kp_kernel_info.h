@@ -33,8 +33,8 @@ class KernelPerformanceInfo {
 			time = 0;
 		}
 		
-		KernelPerformanceInfo(std::string kName, KernelExecutionType kernelType, uint32_t* team_size, uint32_t* vector_length, uint32_t kID, uint32_t max_iteration_count, uint32_t nnz_per_row = 32) :
-                        kType(kernelType), best_time(1.e6), maxVectLength(32)/*depends on ARCH*/, maxHWcapasity(1024)/*depends on ARCH*/, done(false), parent(true), uniqID(kID) {
+		KernelPerformanceInfo(std::string kName, KernelExecutionType kernelType, uint32_t* team_size, uint32_t* vector_length, uint32_t kID, uint32_t max_iteration_count, uint32_t nnz_per_row = 16) :
+                        kType(kernelType), best_time(1.e6), maxVectLength(16)/*depends on ARCH*/, maxHWcapasity(32)/*depends on ARCH*/, done(false), parent(true), uniqID(kID) {
 
                         kernelName = (char*) malloc(sizeof(char) * (kName.size() + 1));
                         strcpy(kernelName, kName.c_str());
@@ -52,7 +52,7 @@ class KernelPerformanceInfo {
         		
 			while(*current_vector_length <non_zeros) *current_vector_length*=2;
         		if(*current_vector_length > maxVectLength) *current_vector_length = maxVectLength;
-        		*current_team_size =  32; //maxHWcapasity / *current_vector_length;
+        		*current_team_size =  1; //maxHWcapasity / *current_vector_length;
 
                 }
 
